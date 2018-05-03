@@ -1,0 +1,51 @@
+doctype html
+html
+  head
+    title= title
+    
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="stylesheet", href="/stylesheets/normalize.css")
+    
+    
+    
+  body
+    .load_cloak(v-if="!loaded")
+        .spinner
+            .bounce1
+            .bounce2
+            .bounce3
+    nav
+        h1 SKINDUEL
+        ul
+            li.play 
+                a(href="/") PLAY
+            li.deposit 
+                a(href="/deposit") DEPOSIT
+            li.store 
+                 a(href="/deposit") STORE
+        if !user
+            a(href="/steam")
+                img(src="./images/login.png", alt="LOGIN")
+        else
+            .log_out_btn 
+                a(href="/logout") LOG OUT
+    .sub_nav
+        p(v-cloak) {{player_balance}}
+
+    if user
+        .pop_up#pop_up
+            block pop_up_content
+
+    
+
+    block content
+
+
+    script(src="/js/socket.io.js")
+    script(src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js")
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js")
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+    block scripts
+    script(src="/js/over.js")

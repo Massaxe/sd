@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    .match
+        .player_cont
+            img.player_img(v-bind:src="match_info.avatars[0]")
+            p.player_name {{match_info.playerNames[0]}}
+            .leave_btn(v-if="this.$global_steam_id === match_info.playerIds[0]", @click="RemoveLobby")
+                p LEAVE
+        .maps
+        .player_two_cont
+            .player_img_wrap
+                img.player_img(v-bind:src="match_info.avatars[1]", v-if="match_info.playerIds[1].length > 0").player_one_img
+                .spinner(v-else)
+                    .bounce1
+                    .bounce2
+                    .bounce3
+            p.player_name(v-if="match_info.playerIds[1].length > 0") {{match_info.playerNames[1]}}
+
+block scripts
+    script(src="/js/match.js")

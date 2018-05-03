@@ -1,0 +1,35 @@
+extends layout
+
+block content
+    .current_lobby(v-if="seen", v-on:click="GoTo")
+        p(v-cloak) You're currently in a lobby. Click me to return.
+    .game
+        .game_btn(v-on:click="ShowCreateLobby")
+            if user
+                p CREATE LOBBY
+            else
+                a(href="/steam") SIGN IN
+        .lobby(v-for="lobby in lobbies" v-cloak)
+            img.player_one_img(v-bind:src="lobby.avatars[0]", alt="Player One")
+            p.lobby_pot {{lobby.pot[0]}}
+            .lobby_btn
+                if user
+                    p(v-if="lobby.playerIds[0] === $global_steam_id", v-on:click="RemoveLobby") REMOVE
+                    p(v-else-if="$global_current_lobby_id") ---
+                    p(v-else) JOIN
+                else
+                    a(href="/steam") SIGN IN
+block pop_up_content
+    .create_lobby(v-if="seen")
+        h1 CREATE LOBBY
+                
+        .slider_wrap
+            p.bet_amount_lbl {{amount}}
+            //-.slider_container
+            input#bet_amount_range.create_lobby_slider(v-model="amount",type="range", name="bet_amount", min="50", v-bind:max="this.$global_balance", value="1")
+        .create_lobby_btn(v-on:click="CreateLobby")
+            p CREATE LOBBY
+
+
+block scripts
+    script(src="/js/main.js")
